@@ -1,5 +1,5 @@
 # namaGenerator
-namaGenerator is a simple web-based human name generator that generates a combination of Indonesian first and last names by considering gender. By choosing the gender and number of syllables for the last name, you can generate unique names as you wish.
+namaGenerator is a simple web-based people name generator that generates a combination of Indonesian first and last names by considering gender. By choosing the gender and number of syllables for the last name, you can generate unique names as you wish.
 
 ## Feature
 - Gender selection: Male or Female.
