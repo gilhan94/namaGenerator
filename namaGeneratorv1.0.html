@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>namaGenerator v1.0</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000000;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+        }
+        #name {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>namaGenerator v1.0 (ID Version)</h2>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" class="form-control">
+                <option value="male">Pria</option>
+                <option value="female">Wanita</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="syllables">Jumlah Nama Belakang:</label>
+            <input type="number" id="syllables" class="form-control" value="2">
+        </div>
+        <div class="form-group">
+            <label for="totalOutput">Total Output:</label>
+            <input type="number" id="totalOutput" class="form-control" value="1" min="1" max="10">
+        </div>
+        <button class="btn btn-dark" onclick="generateName()">Generate!</button>
+        <div>
+        <p id="name"></p>
+    </div>
+
+    <script>
+        var maleNames = ['Abimanyu', 'Bramantyo', 'Cakrawala', 'Damarjati', 'Erlangga', 'Fajar', 'Gatotkaca', 'Harimurti', 'Indrajit', 'Jayabaya', 'Ken Arok', 'Laksamana', 'Mahesa', 'Nagabonar', 'Ongky', 'Pandu', 'Qahhar', 'Raditya', 'Satrio', 'Tunggul', 'Unggul', 'Vishnu', 'Wisanggeni', 'Xanana', 'Yudhistira', 'Zulkarnaen', 'Arjuna', 'Bima', 'Cakradara', 'Dewabrata', 'Ekalaya', 'Febrian', 'Ganesha', 'Hanoman', 'Iswara', 'Janaka', 'Kresna', 'Lingga', 'Mahendra', 'Nakula', 'Oka', 'Prabu', 'Qusai', 'Rama', 'Surya', 'Togog', 'Udayana', 'Varuna', 'Wijaya', 'Xaverius', 'Yama', 'Zebra', 'Aditya', 'Bambang', 'Catur', 'Dewa', 'Eko', 'Fajar', 'Gatot', 'Hendra', 'Indra', 'Jaka', 'Karna', 'Lukman', 'Mada', 'Nala', 'Oscar', 'Pratama', 'Qasid', 'Raden', 'Sena', 'Tama', 'Umar', 'Vito', 'Wira', 'Xeno', 'Yudha', 'Zainal', 'Agus', 'Bayu', 'Cahya', 'Dana', 'Edi', 'Fahri', 'Giri', 'Hari', 'Iwan', 'Joko', 'Kusuma', 'Lukito', 'Maman', 'Nanang', 'Opan', 'Purnama', 'Qomar', 'Rudi', 'Sudirman', 'Tono', 'Unggul', 'Vino', 'Wisnu', 'Xanana', 'Yoga', 'Zain', 'Aji', 'Bambang', 'Cipto', 'Dwi', 'Erlangga', 'Firman', 'Ghani', 'Herman', 'Iskandar', 'Jefri', 'Kurniawan', 'Lukito', 'Mulyono', 'Nur', 'Oscar', 'Prabowo', 'Qais', 'Rudi', 'Sudirman', 'Tono', 'Unggul', 'Vino', 'Wibowo', 'Xeno', 'Yadi', 'Zulkarnain', 'Adi', 'Bintang', 'Catur', 'Doni', 'Endang', 'Firdaus', 'Gito', 'Herman', 'Iskandar', 'Jumadi', 'Kartika', 'Lingga', 'Mujiono', 'Nasrullah', 'Opan', 'Purwanto', 'Qadri', 'Rusdi', 'Saputra', 'Taufik', 'Utomo', 'Vicky', 'Widodo', 'Xander', 'Yono', 'Zamroni', 
+                        'Budi', 'Agus', 'Dedi', 'Hadi', 'Joko', 'Surya', 'Tono', 'Yoga', 'Arief', 'Firman', 'Hendra', 'Ilham', 'Kurnia', 'Lucky',
+                        'Maman', 'Nugroho', 'Oscar', 'Prabowo', 'Rahmat', 'Rizky', 'Adi', 'Bambang', 'Cahyo', 'Dicky', 'Eko', 'Fajar', 'Gunawan',
+                        'Herman', 'Irfan', 'Jefri', 'Kusnanto', 'Luthfi', 'Maulana', 'Nizar', 'Opick', 'Pramudya', 'Qodir', 'Rendi', 'Sapto', 'Tri',
+                        'Usman', 'Vicky', 'Wahyu', 'Xavier', 'Yusuf', 'Zainal', 'Ade', 'Bayu', 'Chandra', 'Dharma', 'Edi', 'Farhan', 'Gatot', 'Harun',
+                        'Iqbal', 'Jaka', 'Krisna', 'Lukman', 'Miftah', 'Nanda', 'Oscar', 'Putra', 'Qori', 'Rizal', 'Subhan', 'Taufik', 'Umar', 'Vino',
+                        'Willy', 'Xanana', 'Yudi', 'Zaki', 'Ari', 'Bima', 'Cakra', 'Dian', 'Erlangga', 'Fauzan', 'Gilang', 'Hanif', 'Indra', 'Jibril',
+                        'Khalid', 'Lutfi', 'Musa', 'Nashir', 'Omar', 'Putu', 'Qowi', 'Rico', 'Sakti', 'Teguh', 'Uwais', 'Viki', 'Wira', 'Xanto', 'Yanuar',
+                        'Zaid', 'Abdi', 'Bowo', 'Cahyadi', 'Darma', 'Edo', 'Fahmi', 'Galih', 'Hendro', 'Ibnu', 'Jamal', 'Koko', 'Lukito', 'Maman', 'Nando',
+                        'Oscar', 'Prasetyo', 'Qomar', 'Ruslan', 'Suryadi', 'Tegar', 'Umar', 'Vico', 'Widodo', 'Xerof', 'Yoga', 'Zaky'];
+       
+        var femaleNames = ['Siti', 'Dewi', 'Ayu', 'Rini', 'Tina', 'Mila', 'Ria', 'Ani', 'Bunga', 'Citra', 'Dewi', 'Eka', 'Fitri', 'Gita', 'Heni', 'Indah', 'Juwita', 'Kartika', 'Lestari', 'Mega', 'Nia', 'Oktavia', 'Putri', 'Qory', 'Ratna', 'Sari', 'Titi', 'Umi', 'Vita', 'Winda', 'Xena', 'Yani', 'Zahra', 'Ayu', 'Bella', 'Cinta', 'Dian', 'Evi', 'Fani', 'Gina', 'Hana', 'Intan', 'Jasmine', 'Kamila', 'Lia', 'Mila', 'Nina', 'Olivia', 'Puspita', 'Qistina', 'Rina', 'Sinta', 'Tania', 'Una', 'Vina', 'Wulan', 'Xanthe', 'Yulia', 'Zara', 'Amelia', 'Bintang', 'Cahaya', 'Dara', 'Elisa', 'Fira', 'Gadis', 'Hani', 'Ika', 'Jelita', 'Karina', 'Linda', 'Maya', 'Nadia', 'Olive', 'Priska', 'Queen', 'Rosa', 'Shinta', 'Tasya', 'Ulfah', 'Vania', 'Widya', 'Xandra', 'Yasmin', 'Zalfa', 
+                        'Siti', 'Dewi', 'Ayu', 'Rini', 'Tina', 'Mila', 'Ria', 'Yuni', 'Anita', 'Fitri', 'Hesti', 'Indah', 'Kartika', 'Linda', 'Nadia',
+                        'Putri', 'Ratna', 'Siska', 'Tari', 'Wulan', 'Yulia', 'Aisyah', 'Bunga', 'Citra', 'Diana', 'Eka', 'Febri', 'Gita', 'Hana', 'Ina',
+                        'Jasmine', 'Krisna', 'Laras', 'Mega', 'Nina', 'Olive', 'Puti', 'Qonita', 'Rahayu', 'Sinta', 'Tiara', 'Uci', 'Vivi', 'Windy', 'Xena',
+                        'Yessi', 'Zahra', 'Ade', 'Bunga', 'Cici', 'Dian', 'Evi', 'Fitri', 'Gadis', 'Heni', 'Intan', 'Juli', 'Kiki', 'Lina', 'Merry', 'Nia',
+                        'Okta', 'Putri', 'Qonita', 'Rina', 'Sari', 'Tuti', 'Umi', 'Vera', 'Wati', 'Xiao', 'Yanti', 'Zulfa', 'Alya', 'Bella', 'Cinta', 'Dita',
+                        'Eva', 'Fina', 'Gina', 'Hana', 'Ika', 'Juli', 'Karin', 'Lila', 'Mira', 'Nina', 'Olla', 'Putri', 'Queena', 'Rita', 'Siska', 'Tina', 'Uci',
+                        'Vina', 'Winda', 'Xindy', 'Yenny', 'Zara', 'Aisyah', 'Balqis', 'Citra', 'Dara', 'Elsa', 'Fira', 'Gadis', 'Hani', 'Ina', 'Julia', 'Kiki', 'Linda',
+                        'Merry', 'Nita', 'Olla', 'Putri', 'Queena', 'Ratna', 'Sari', 'Tia', 'Umi', 'Vina', 'Winda', 'Xena', 'Yulia', 'Zara', 'Alia', 'Bella', 'Cinta', 'Dini', 'Eva',
+                        'Fira', 'Gina', 'Hani', 'Ina', 'Juli', 'Karin', 'Linda', 'Maya', 'Nina', 'Olla', 'Putri', 'Queena', 'Ratna', 'Sari', 'Tia', 'Umi', 'Vina', 'Winda', 'Xena', 'Yulia', 'Zara'];
+
+        var maleLastNames = ['Saputra', 'Kurniawan', 'Wijaya', 'Setiawan', 'Wibowo', 'Purwanto', 'Suryanto', 'Mulyono', 'Nugroho', 'Hidayat', 'Santoso', 'Hartono', 'Pratama', 'Siregar', 'Purnama', 'Wijaya', 'Susanto', 'Wijaya', 'Harahap', 'Putra', 'Aditya', 'Brahmana', 'Cahyadi', 'Darmawan', 'Eka', 'Fadli', 'Gunawan', 'Hakim', 'Irawan', 'Jaswadi', 'Kurniawan', 'Lestari', 'Mahardika', 'Nugraha', 'Prasetya', 'Raharja', 'Saputra', 'Tirta', 'Utama', 'Wibisono', 'Yudhistira', 'Zulkarnain', 'Anggara', 'Budiman', 'Candra', 'Dewanto', 'Effendi', 'Fajar', 'Ganesha', 'Hermawan', 'Indrajaya', 'Jatmiko', 'Kusumo', 'Laksono', 'Manggala', 'Narottama', 'Pramudya', 'Rahmanto', 'Setiawan', 'Trisna', 'Udayana', 'Wijaya', 'Yasmin', 'Zamzami', 'Anindya', 'Baskoro', 'Ciptadi', 'Damar', 'Ekawati', 'Fahmi', 'Giri', 'Harjanto', 'Iswara', 'Jatnika', 'Kusuma', 'Laksmi', 'Mandala', 'Narendra', 'Prakoso', 'Rahmat', 'Satria', 'Tri', 'Utomo', 'Wicaksono', 'Yasir', 'Zamrud', 'Ardiansyah', 'Bimo', 'Cipto', 'Dewa', 'Erlangga', 'Fadil', 'Guntara', 'Hartanto', 'Iswanto', 'Jaya', 'Kusumah', 'Laksana', 'Manuhutu', 'Nugroho', 'Prasasta', 'Rahman', 'Setia', 'Trisulo', 'Unggul', 'Widodo', 'Yanto', 'Zamzam',
+                            'Aditya', 'Brahmana', 'Cahyadi', 'Darmawan', 'Eka', 'Fadli', 'Gunawan', 'Hakim', 'Irawan', 'Jaswadi', 'Kurniawan', 'Lestari', 'Mahardika', 'Nugraha', 'Prasetya', 'Raharja', 'Saputra', 'Tirta', 'Utama', 'Wibisono', 'Yudhistira', 'Zulkarnain', 'Anggara', 'Budiman', 'Candra', 'Dewanto', 'Effendi', 'Fajar', 'Ganesha', 'Hermawan', 'Indrajaya', 'Jatmiko', 'Kusumo', 'Laksono', 'Manggala', 'Narottama', 'Pramudya', 'Rahmanto', 'Setiawan', 'Trisna', 'Udayana', 'Wijaya', 'Yasmin', 'Zamzami', 'Anindya', 'Baskoro', 'Ciptadi', 'Damar', 'Ekawati', 'Fahmi', 'Giri', 'Harjanto', 'Iswara', 'Jatnika', 'Kusuma', 'Laksmi', 'Mandala', 'Narendra', 'Prakoso', 'Rahmat', 'Satria', 'Tri', 'Utomo', 'Wicaksono', 'Yasir', 'Zamrud', 'Ardiansyah', 'Bimo', 'Cipto', 'Dewa', 'Erlangga', 'Fadil', 'Guntara', 'Hartanto', 'Iswanto', 'Jaya', 'Kusumah', 'Laksana', 'Manuhutu', 'Nugroho', 'Prasasta', 'Rahman', 'Setia', 'Trisulo', 'Unggul', 'Widodo', 'Yanto', 'Zamzam', 'Aditya', 'Brahmana', 'Cahyadi', 'Darmawan', 'Eka', 'Fadli', 'Gunawan', 'Hakim', 'Irawan', 'Jaswadi', 'Kurniawan', 'Lestari', 'Mahardika', 'Nugraha', 'Prasetya', 'Raharja', 'Saputra', 'Tirta', 'Utama', 'Wibisono', 'Yudhistira', 'Zulkarnain', 'Anggara', 'Budiman', 'Candra', 'Dewanto', 'Effendi', 'Fajar', 'Ganesha', 'Hermawan', 'Indrajaya', 'Jatmiko', 'Kusumo', 'Laksono', 'Manggala', 'Narottama', 'Pramudya', 'Rahmanto', 'Setiawan', 'Trisna', 'Udayana', 'Wijaya', 'Yasmin', 'Zamzami', 'Anindya', 'Baskoro', 'Ciptadi', 'Damar', 'Ekawati', 'Fahmi', 'Giri', 'Harjanto', 'Iswara', 'Jatnika', 'Kusuma', 'Laksmi', 'Mandala', 'Narendra', 'Prakoso', 'Rahmat', 'Satria', 'Tri', 'Utomo', 'Wicaksono', 'Yasir', 'Zamrud', 'Ardiansyah', 'Bimo', 'Cipto', 'Dewa', 'Erlangga', 'Fadil', 'Guntara', 'Hartanto', 'Iswanto', 'Jaya', 'Kusumah', 'Laksana', 'Manuhutu', 'Nugroho', 'Prasasta', 'Rahman', 'Setia', 'Trisulo', 'Unggul', 'Widodo', 'Yanto', 'Zamzam'];
+
+        var femaleLastNames = ['Saputri', 'Kurniawati', 'Wijayanti', 'Setiawati', 'Wibowo', 'Purwanti', 'Suryanti', 'Mulyani', 'Nugraheni', 'Hidayati', 'Santoso', 'Hartono', 'Pratama', 'Siregar', 'Purnama', 'Wijaya', 'Susanti', 'Wijaya', 'Harahap', 'Putri', 'Adinda', 'Budiani', 'Cahyani', 'Dewanti', 'Ekaputri', 'Fitriani', 'Gunarti', 'Hastuti', 'Indriani', 'Juwitani', 'Kartikasari', 'Lestari', 'Maharani', 'Nuraini', 'Pratiwi', 'Rahayu', 'Saraswati', 'Trisnawati', 'Utami', 'Wijayanti', 'Yulianti', 'Zulaikha', 'Anggraini', 'Budianti', 'Cahyaningrum', 'Dewi', 'Ekasari', 'Fitria', 'Gustiani', 'Hapsari', 'Indrayani', 'Juwita', 'Kusumaningrum', 'Laksmiwati', 'Mulyani', 'Nurhayati', 'Puspitasari', 'Rahmawati', 'Sari', 'Trisnawati', 'Utari', 'Widyawati', 'Yunita', 'Zahra', 'Anjani', 'Budiyanti', 'Cahyanti', 'Dewanti', 'Eka', 'Fitri', 'Gusti', 'Hastuti', 'Indri', 'Juwita', 'Kartika', 'Lestari', 'Mulyani', 'Nur', 'Puspita', 'Rahma', 'Saraswati', 'Tri', 'Utami', 'Wijaya', 'Yuni', 'Zulaikha', 
+                        'Wulandari', 'Kusumawati', 'Astuti', 'Lestari', 'Safitri', 'Pertiwi', 'Mardiana', 'Rahmawati', 'Purwanti', 'Sihombing', 'Purwaningsih', 'Utami', 'Ayu', 'Widya', 'Larasati',
+                        'Saraswati', 'Mega', 'Riyanti', 'Kartika', 'Dewanti', 'Savitri', 'Amalia', 'Cahyani', 'Permata', 'Nuraini', 'Sriwahyuni', 'Rusmini', 'Kurniasih', 'Dianawati', 'Wijayanti',
+                        'Damayanti', 'Intan', 'Yunita', 'Ningsih', 'Kumala', 'Winarti', 'Linda', 'Surya', 'Kartini', 'Suci', 'Puspita', 'Dewi', 'Lukitasari', 'Ningrum', 'Lestari', 'Pratiwi', 'Prasetya',
+                        'Indriyani', 'Citra', 'Laras', 'Mayang', 'Wulan', 'Aisyah', 'Rahayu', 'Aditya', 'Putri', 'Septiani', 'Widyastuti', 'Maulidia', 'Wardhani', 'Aulia', 'Liana', 'Mega', 'Triastuti', 'Dwi',
+                        'Nuraini', 'Purnamasari', 'Wahyuni', 'Ningsih', 'Nurfitriani', 'Nabila', 'Wahyuni', 'Munawaroh', 'Sukmawati', 'Damayanti', 'Nuraini', 'Purnamasari', 'Larasati', 'Puspitasari', 'Indrawati',
+                        'Dyah', 'Sekar', 'Darmawati', 'Mulia', 'Sari', 'Hapsari', 'Kartika', 'Sri', 'Wahyuningrum', 'Astuti', 'Hikmawati', 'Kusumawati', 'Wijayanti', 'Sukmawati', 'Nuraini', 'Hapsari', 'Ningrum',
+                        'Sukmawati', 'Mardiana', 'Purwanti', 'Siti', 'Rahayu', 'Nuraini', 'Purnamasari', 'Sari', 'Yuniar', 'Rahayu', 'Fitriani', 'Nurfitriani', 'Wahyuni', 'Munawaroh', 'Sukmawati', 'Damayanti',
+                        'Nuraini', 'Purnamasari', 'Larasati', 'Puspitasari', 'Indrawati', 'Dyah', 'Sekar', 'Darmawati', 'Mulia', 'Sari', 'Hapsari', 'Kartika', 'Sri', 'Wahyuningrum', 'Astuti', 'Hikmawati', 'Kusumawati',
+                        'Wijayanti', 'Sukmawati', 'Nuraini', 'Hapsari', 'Ningrum', 'Sukmawati', 'Mardiana', 'Purwanti', 'Siti', 'Rahayu', 'Nuraini', 'Purnamasari', 'Sari', 'Yuniar', 'Rahayu', 'Fitriani', 'Nurfitriani', 'Wahyuni',
+                        'Munawaroh', 'Sukmawati', 'Damayanti', 'Nuraini', 'Purnamasari', 'Larasati', 'Puspitasari', 'Indrawati', 'Dyah', 'Sekar', 'Darmawati', 'Mulia', 'Sari', 'Hapsari', 'Kartika', 'Sri', 'Wahyuningrum', 'Astuti',
+                        'Hikmawati', 'Kusumawati', 'Wijayanti', 'Sukmawati', 'Nuraini', 'Hapsari', 'Ningrum', 'Sukmawati', 'Mardiana', 'Purwanti', 'Siti', 'Rahayu', 'Nuraini', 'Purnamasari', 'Sari', 'Yuniar', 'Rahayu', 'Fitriani',
+                        'Nurfitriani', 'Wahyuni', 'Munawaroh', 'Sukmawati', 'Damayanti', 'Nuraini', 'Purnamasari', 'Larasati', 'Puspitasari', 'Indrawati', 'Dyah', 'Sekar', 'Darmawati', 'Mulia', 'Sari'];
+
+
+        
+            function generateName() {
+            var gender = document.getElementById('gender').value;
+            var syllables = document.getElementById('syllables').value;
+            var totalOutput = document.getElementById('totalOutput').value;
+            var names = gender === 'male' ? maleNames : femaleNames;
+            var lastNames = gender === 'male' ? maleLastNames : femaleLastNames;
+            var output = '';
+            for (var j = 0; j < totalOutput; j++) {
+                var name = '';
+                for (var i = 0; i < syllables; i++) {
+                    name += names[Math.floor(Math.random() * names.length)] + ' ';
+                }
+                name += lastNames[Math.floor(Math.random() * lastNames.length)];
+                output += name.trim() + '<br>';
+            }
+            document.getElementById('name').innerHTML = output;
+            Swal.fire("Berhasil!", "Nama: " + output, "success");
+        }
+    </script>
+</body>
+<footer style="position: fixed; bottom: 0; left: 0; font-size: small;">
+    <a href="https://github.com/gilhan94" target="_blank" style="text-decoration: none; color: inherit;">
+        made with ❤ by gilhan94
+    </a>
+</footer>
+</html>
