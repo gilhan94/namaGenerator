@@ -23,4 +23,8 @@ namaGenerator is a simple web-based human name generator that generates a combin
 ## How to Run
 You can run this by opening the `namaGeneratorv1.0.html` file in your web browser.
 
-# Screenshots
+## Screenshots
+![Capture](https://github.com/gilhan94/namaGenerator/assets/119025411/f2a421d5-a2ad-4d39-9c05-98bbee6ea955)
+
+
+![Capture2](https://github.com/gilhan94/namaGenerator/assets/119025411/55771aa5-97ad-4537-94d8-1c99744859f0)
